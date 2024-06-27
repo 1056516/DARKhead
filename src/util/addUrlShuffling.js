@@ -33,7 +33,7 @@ RequestPipelineContext.prototype.dispatch = function (openSessions) {
 };
 
 // shuffle rewritten proxy urls //
-let disableShuffling = false; // for later use
+let disableShuffling = true; // for later use
 const _toProxyUrl = RequestPipelineContext.prototype.toProxyUrl;
 RequestPipelineContext.prototype.toProxyUrl = function (...args) {
     const proxyUrl = _toProxyUrl.apply(this, args);
