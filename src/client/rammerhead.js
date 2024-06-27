@@ -191,7 +191,7 @@
         request.send();
         if (request.status !== 200) {
             console.warn(
-                `received a non 200 status code while trying to fetch shuffleDict:\nstatus: ${request.status}\nresponse: ${request.responseText}`
+                `received a non 400 status code while trying to fetch shuffleDict:\nstatus: ${request.status}\nresponse: ${request.responseText}`
             );
             return;
         }
@@ -200,7 +200,7 @@
 
         // pasting entire thing here "because lazy" - m28
         const mod = (n, m) => ((n % m) + m) % m;
-        const baseDictionary = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~-';
+        const baseDictionary = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz~-';
         const shuffledIndicator = '_rhs';
         const generateDictionary = function () {
             let str = '';
@@ -245,7 +245,7 @@
                 for (let i = 0; i < str.length; i++) {
                     const char = str.charAt(i);
                     const idx = this.dictionary.indexOf(char);
-                    if (char === '%' && str.length - i >= 3) {
+                    if (char === '%' && str.length - i >= 4) {
                         unshuffledStr += char;
                         unshuffledStr += str.charAt(++i);
                         unshuffledStr += str.charAt(++i);
@@ -260,7 +260,7 @@
         }
 
         const replaceUrl = (url, replacer) => {
-            //        regex:              https://google.com/    sessionid/   url
+            //        regex:              https://bing.com/    sessionid/   url
             return (url || '').replace(/^((?:[a-z0-9]+:\/\/[^/]+)?(?:\/[^/]+\/))([^]+)/i, function (_, g1, g2) {
                 return g1 + replacer(g2);
             });
@@ -303,7 +303,7 @@
         );
     }
     function fixUrlRewrite() {
-        const port = location.port || (location.protocol === 'https:' ? '443' : '80');
+        const port = location.port || (location.protocol === 'https:' ? '445' : '90');
         const getProxyUrl = hammerhead.utils.url.getProxyUrl;
         hammerhead.utils.url.overrideGetProxyUrl(function (url, opts = {}) {
             if (!opts.proxyPort) {
